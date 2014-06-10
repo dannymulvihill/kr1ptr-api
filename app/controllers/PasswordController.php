@@ -63,10 +63,10 @@ class PasswordController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$pass = User::find($this->jwt->uid)->passwords->find($id)->toArray();
+		$pass = User::find($this->jwt->uid)->passwords->find($id);
 
 		if ($pass) {
-			echo json_encode(array('error' => 0, 'data' => $pass));
+			echo json_encode(array('error' => 0, 'data' => $pass->toArray()));
 		}
 		else {
 			echo json_encode(array('error' => 1, 'msg' => 'Record was not found.'));
@@ -108,6 +108,6 @@ class PasswordController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		User::find($this->jwt->uid)->passwords->destroy($id);
+		User::find($this->jwt->uid)->passwords->find($id)->destroy($id);
 	}
 }
