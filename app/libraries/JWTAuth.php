@@ -4,7 +4,7 @@ class JWTAuth {
 
 	public static function getExpiration()
 	{
-		return time() + (60 * 15);
+		return time() + (4 * 60 * 60); // 4 hours
 	}
 
 	public static function buildToken($user_id)
@@ -55,8 +55,8 @@ class JWTAuth {
 	{
 		$jwt = JWT::decode($_SERVER['HTTP_X_JWT_AUTH_TOKEN'], Config::get('app.key'));
 
-		// the JWT is still valid, but will expire within 5 minutes refresh it
-		if (($jwt->exp < (time() + (60 * 5)) && ($jwt->exp > time())))
+		// the JWT is still valid, but will expire within 4 hours refresh it
+		if (($jwt->exp < (time() + (4 * 60 * 60)) && ($jwt->exp > time())))
 		{
 			$output = ob_get_clean();
 
