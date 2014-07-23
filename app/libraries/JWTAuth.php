@@ -62,6 +62,10 @@ class JWTAuth {
 
 			$response = json_decode($output);
 
+			if (empty($response)) {
+				$response = new stdClass();
+			}
+
 			$response->jwt = self::buildToken($jwt->uid);
 			$response->exp = self::getExpiration();
 
